@@ -1,0 +1,391 @@
+/* === Общие стили страницы === */
+body {
+  font-family: 'Roboto', sans-serif; /* Основной шрифт текста */
+  margin: 0;                         /* Убираем отступы по краям */
+  padding: 0;
+  background-color: #f4f4f9;         /* Светло-серый фон */
+  color: #333;                       /* Цвет основного текста */
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Playfair Display', serif; /* Декоративный шрифт для заголовков */
+  margin: 0 0 10px;
+}
+
+.container {
+  max-width: 1200px;    /* Ограничиваем ширину */
+  margin: 0 auto;       /* Центрируем */
+  padding: 0 15px;
+}
+
+/* === HEADER (Шапка сайта) === */
+header {
+  background-color: #fff;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee; /* Линия под шапкой */
+}
+
+.header-left {
+  display: flex;
+  align-items: center; /* Выравниваем логотип и текст по центру по вертикали */
+}
+
+.header-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Расположение логотипа и меню по краям */
+  align-items: center;
+}
+
+.logo {
+  height: 60px;         /* Высота изображения логотипа */
+  margin-right: 15px;   /* Отступ от текста */
+}
+
+.tagline {
+  margin: 0;
+  font-size: 14px;
+  color: #666; /* Серый цвет для подзаголовка */
+}
+
+/* === Навигация === */
+nav ul {
+  display: flex;        /* Горизонтальное меню */
+  list-style: none;     /* Убираем маркеры */
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin-left: 20px;    /* Расстояние между пунктами меню */
+}
+
+nav ul li a {
+  position: relative;
+  display: inline-block;
+  color: #333;
+  text-decoration: none;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+/* Подчеркивание при наведении (появляется как анимация) */
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  width: 0;
+  height: 2px;
+  background-color: #888888;
+  transition: width 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #888888;
+  transform: scale(1.05); /* Увеличение при наведении */
+}
+
+nav ul li a:hover::after {
+  width: 100%; /* Полное подчеркивание */
+}
+
+/* === Брендинг: название рядом с логотипом === */
+.branding-text {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.branding-text h1 {
+  margin: 0;
+  font-size: 32px;
+  font-family: 'Playfair Display', serif;
+}
+
+/* === Каталог — вводная часть === */
+.catalog-intro {
+  background-color: #f9f9f9;
+  padding: 60px 20px 40px;
+  text-align: center;
+}
+
+.catalog-intro h2 {
+  font-size: 34px;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 15px;
+  color: #2c2c2c;
+}
+
+.catalog-intro p {
+  font-size: 18px;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* === Каталог товаров === */
+.catalog {
+  padding: 50px 0;
+  background-color: #fff;
+}
+
+.catalog h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Стили для карточки товара */
+.product-card {
+  background-color: #fff; /* Белый фон карточки */
+  border: 1px solid #ddd; /* Светло-серая рамка */
+  border-radius: 8px; /* Скругление углов */
+  padding: 20px; /* Внутренние отступы */
+  text-align: center; /* Центрирование содержимого */
+  transition: transform 0.3s, box-shadow 0.3s; /* Плавные переходы для масштабирования и тени */
+}
+
+/* Эффект при наведении на карточку */
+.product-card:hover {
+  transform: scale(1.03); /* Лёгкое увеличение размера */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Мягкая тень для эффекта "подъёма" */
+}
+
+/* Стили для изображения товара внутри карточки */
+.product-card img {
+  width: 100%; /* Изображение на всю ширину карточки */
+  height: auto; /* Автоматическая высота для сохранения пропорций */
+  border-radius: 8px; /* Скругление углов изображения */
+  margin-bottom: 15px; /* Отступ снизу от изображения до текста */
+}
+
+/* Стили для цены */
+.price {
+  font-size: 18px; /* Размер шрифта */
+  color: #333; /* Тёмно-серый цвет текста */
+  font-weight: bold; /* Жирный шрифт */
+  margin: 10px 0; /* Вертикальные отступы сверху и снизу */
+}
+
+
+/* === Кнопка "Купить" === */
+.buy-button {
+  display: inline-block;
+  background-color: #fff;
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.buy-button:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.buy-button:active {
+  background-color: #e0e0e0;
+}
+
+/* === Преимущества и отзывы === */
+.benefits,
+.reviews {
+  padding: 50px 0;
+  background-color: #fff;
+}
+
+.benefits h2,
+.reviews h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.benefit-items,
+.review-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.benefit-item,
+.review-card {
+  flex: 1 1 250px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* === Блок "О нас" === */
+.about {
+  padding: 50px 0;
+  background-color: #f4f4f9;
+}
+
+.about h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.about p {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* === Форма заказа === */
+.contact {
+  padding: 50px 0;
+  background-color: #fff;
+}
+
+.contact h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.order-form input,
+.order-form select,
+.order-form textarea {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.order-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Кнопка отправки формы заказа */
+.order-form .buy-button {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.order-form .buy-button:hover {
+  background-color: #0056b3;
+}
+
+/* === Подвал сайта === */
+footer {
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* === Контактная информация в футере === */
+.contact-footer {
+  background-color: #f8f8f8;
+  padding: 40px 20px;
+  text-align: center;
+  margin-top: 60px;
+  border-top: 1px solid #ddd;
+}
+
+.contact-footer h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.contact-footer p {
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.contact-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-footer li {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.contact-footer a {
+  color: #333;
+  text-decoration: none;
+}
+
+.contact-footer a:hover {
+  text-decoration: underline;
+}
+
+/* === Логотип + текстовое название компании === */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  font-family: 'Playfair Display', serif;
+}
+
+.account-icon {
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.account-img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.account-img:hover {
+  transform: scale(1.1);
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+}

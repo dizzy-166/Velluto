@@ -1,0 +1,188 @@
+
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            background-image: url('../img/background.jpg');
+            background-size: 2600px 2000px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(148, 148, 148, 1);;
+            padding: 40px; /* Увеличен внутренний отступ */
+            border-radius: 12px; /* Увеличен радиус скругления */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Усилена тень */
+            width: 350px; /* Увеличена ширина */
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px; /* Увеличен отступ снизу */
+            font-size: 28px; /* Увеличен размер шрифта */
+        }
+
+        .input-group {
+            margin-bottom: 25px; /* Увеличен отступ между полями */
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px; /* Увеличен отступ */
+            color: #555;
+            font-weight: bold;
+            font-size: 16px; /* Увеличен размер шрифта */
+
+        }
+
+        input {
+            width: 100%;
+            padding: 12px; /* Увеличен внутренний отступ */
+            border: 1px solid #ddd;
+            border-radius: 6px; /* Увеличен радиус скругления */
+            box-sizing: border-box;
+            font-size: 16px; /* Увеличен размер шрифта */
+	    background-color: #c9c9c9;
+        }
+
+        .login-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 14px; /* Увеличен внутренний отступ */
+            border-radius: 6px; /* Увеличен радиус скругления */
+            cursor: pointer;
+            font-size: 18px; /* Увеличен размер шрифта */
+            width: 100%;
+            margin-top: 20px; /* Увеличен отступ сверху (между полем пароля и кнопкой) */
+            margin-bottom: 30px; /* Увеличен отступ снизу (между кнопкой и текстом ниже) */
+            transition: background-color 0.3s; /* Добавлен плавный переход */
+        }
+
+        .login-btn:hover {
+            background-color: #45a049;
+    text-decoration: none; /* Убедимся, что подчеркивание не появится */
+    transform: translateY(-1px); /* Легкий эффект нажатия */
+        }
+
+        .register-link {
+            margin-top: 20px; /* Увеличен отступ сверху (между кнопкой и этим текстом) */
+            color: #666;
+            font-size: 16px; /* Увеличен размер шрифта */
+        }
+
+        .register-link a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s; /* Добавлен плавный переход */
+        }
+
+        .register-link a:hover {
+            color: #0066cc;
+        }
+
+	.login-btn-link {
+    display: block; /* Чтобы занимала всю ширину как кнопка */
+    width: 100%;
+    padding: 14px; /* Сохраняем оригинальный отступ */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none; /* Убираем подчеркивание */
+    font-size: 18px;
+    margin: 20px 0 30px 0; /* Сохраняем оригинальные отступы */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-sizing: border-box; /* Для корректного расчета размеров */
+}
+
+/* Стили для невалидных полей */
+input.invalid {
+    border: 2px solid #ff4444;
+    background-color: #ffeeee;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+/* Стили для неактивной кнопки */
+.login-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none !important;
+}
+
+/* Общие стили для ошибок */
+input.invalid {
+    border: 2px solid #ff4444;
+    background-color: #ffeeee;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+/* Стили для неактивной кнопки */
+.register-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none !important;
+}
+
+/* Специфичные стили для страницы регистрации */
+.register-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 20px 0 30px 0;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.register-btn:hover:not(:disabled) {
+    background-color: #45a049;
+    transform: translateY(-1px);
+}
+
+.login-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-link a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 16px;
+}
+
+.login-link a:hover {
+    color: #0066cc;
+    text-decoration: underline;
+}

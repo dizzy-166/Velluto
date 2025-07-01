@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Velluto — Офисные стулья</title>
+  <link rel="stylesheet" href="{% static 'main/css/style.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <script>
+    function updateTotal() {
+      var productPrices = {
+        {% for chair in chairs %}
+        "{{ chair.title }}": {{ chair.price|floatformat:"0" }}{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      };
+
+      var product = document.getElementById("product").value;
+      var quantity = document.getElementById("quantity").value;
+
+      if (product && quantity) {
+        var total = productPrices[product] * quantity;
+        document.getElementById("total").innerText = "Сумма: " + total.toLocaleString('ru-RU') + " ₽";
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="container header-flex">
+      <div class="header-left">
+        <img src="{% static 'main/img/Логотип_ОфисМарт.png' %}" alt="Velluto Logo" class="logo" />
+        <div class="branding-text">
+          <h1>Velluto</h1>
+          <p class="tagline">Офисные стулья с гарантией комфорта</p>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#catalog">Каталог</a></li>
+          <li><a href="#benefits">Преимущества</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#contact">Контакты</a></li>
+        </ul>
+      </nav>
+      <div class="account-icon">
+        <a href="{% url 'login' %}" title="Личный кабинет">
+          <img src="{% static 'main/img/account-icon.png' %}" alt="Личный кабинет" class="account-img">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="catalog-intro">
+    <div class="container">
+      <h2>Откройте для себя идеальное кресло</h2>
+      <p>
+        Комфорт начинается с правильного выбора. Мы собрали для вас коллекцию офисных кресел, которые сочетают в себе стиль, эргономику и надёжность.
+      </p>
+    </div>
+  </section>
+
+  <section id="catalog" class="catalog">
+    <div class="container">
+      <h2>Каталог кресел</h2>
+      <div class="product-grid">
+        {% for chair in chairs %}
+        <div class="product-card">
+          {% if chair.photo %}
+          <img src="{{ chair.photo.url }}" alt="{{ chair.title }}" />
+          {% else %}
+          <img src="{% static 'main/img/Стул_1.jpg' %}" alt="{{ chair.title }}" />
+          {% endif %}
+          <h3>{{ chair.title }}</h3>
+          <p>{{ chair.description }}</p>
+          <p class="price">{{ chair.price|floatformat:"0" }} ₽</p>
+          <a href="#order-form" class="buy-button" data-product="{{ chair.title }}">Купить</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="benefits" class="benefits">
+    <div class="container">
+      <h2>Почему выбирают нас?</h2>
+      <div class="benefit-items">
+        <div class="benefit-item">Широкий ассортимент моделей</div>
+        <div class="benefit-item">Высокое качество материалов</div>
+        <div class="benefit-item">Доставка по всей России</div>
+        <div class="benefit-item">Гарантия до 5 лет</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" class="reviews">
+    <div class="container">
+      <h2>Отзывы клиентов</h2>
+      <div class="review-grid">
+        <div class="review-card">"Стул просто супер! Удобный и стильный!" — Ирина К.</div>
+        <div class="review-card">"Быстрая доставка и отличное качество!" — Алексей М.</div>
+        <div class="review-card">"Очень доволен покупкой, сижу по 8 часов и не устаю." — Сергей В.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container">
+      <h2>О нас</h2>
+      <p>Компания Velluto занимается производством и продажей офисных стульев с 2005 года. Мы обеспечиваем комфорт и стиль на рабочем месте, предоставляя широкий выбор стульев и кресел для любой компании.</p>
+    </div>
+  </section>
+
+  <main class="container">
+    <form id="order-form" class="order-form" action="{% url 'order' %}" method="post">
+      {% csrf_token %}
+      <label for="product">Выберите товар:</label>
+      <select name="product" id="product" required onchange="updateTotal()">
+        <option value="">-- Выберите кресло --</option>
+        {% for chair in chairs %}
+        <option value="{{ chair.title }}">{{ chair.title }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="name">Ваше имя:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="phone">Телефон:</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="quantity">Количество:</label>
+      <input type="number" id="quantity" name="quantity" value="1" min="1" required onchange="updateTotal()">
+
+      <label for="address">Адрес доставки:</label>
+      <input type="text" id="address" name="address" required>
+
+      <p id="total">К оплате: 0 ₽</p>
+
+      <button type="submit" class="buy-button">Перейти к оплате</button>
+    </form>
+  </main>
+
+  <footer class="contact-footer">
+    <h2>Свяжитесь с нами</h2>
+    <p>Если у вас возникли вопросы, предложения или нужна помощь — свяжитесь с нами удобным способом:</p>
+    <ul>
+      <li><strong>Телефон:</strong> <a href="tel:+78005553535">8 800 555-35-35</a></li>
+      <li><strong>Email:</strong> <a href="mailto:info@velluto.ru">info@velluto.ru</a></li>
+      <li><strong>Адрес:</strong> Нижний Новгород, ул. Гагарина, 52, офис 5</li>
+    </ul>
+  </footer>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Velluto. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll('.buy-button[data-product]');
+      const productSelect = document.getElementById('product');
+
+      buttons.forEach(button => {
+        button.addEventListener('click', function () {
+          const selectedProduct = this.getAttribute('data-product');
+          if (productSelect) {
+            productSelect.value = selectedProduct;
+            updateTotal();
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

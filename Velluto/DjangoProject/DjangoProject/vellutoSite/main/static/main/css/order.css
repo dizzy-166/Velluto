@@ -1,0 +1,131 @@
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif; /* Шрифт для всего сайта */
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    text-align: center; /* Центрируем весь контент в шапке */
+}
+
+.header-flex {
+    display: inline-flex; /* Меняем на inline-flex, чтобы элементы шапки выравнивались по центру */
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Добавляем расстояние между логотипом и текстом */
+}
+
+.logo {
+    width: 80px; /* Уменьшаем логотип до 80px */
+    max-width: 100%; /* Логотип не выходит за пределы контейнера */
+}
+
+
+h1 {
+    font-family: 'Playfair Display', serif; /* Шрифт для заголовков */
+    font-size: 28px;
+    margin: 0;
+}
+
+.tagline {
+    font-size: 16px;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Контейнер */
+.container {
+    padding: 40px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Стили для формы оплаты */
+.payment-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.payment-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.payment-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Стили для кнопки */
+.payment-form button {
+    padding: 12px 20px;
+    background-color: #4CAF50; /* Цвет кнопки */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+.payment-form button:hover {
+    background-color: #45a049;
+}
+
+/* Подвал страницы */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #fff;
+    color: #777;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+#success-message {
+    color: green;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#back-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#back-button button {
+    padding: 12px 20px;
+    background-color: #4CAF50; /* Зеленый цвет кнопки */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#back-button button:hover {
+    background-color: #45a049;
+}

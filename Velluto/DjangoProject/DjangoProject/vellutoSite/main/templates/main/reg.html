@@ -11,26 +11,35 @@
 <body>
     <div class="container">
         <h1>Регистрация</h1>
-        <form id="registerForm">
-            <div class="input-group">
-                <label for="login">Логин</label>
-                <input type="text" id="login" placeholder="Придумайте логин">
-                <span class="error-message">Поле обязательно для заполнения</span>
+
+        <form method="post">
+              {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error">{{ form.username.errors }}</div>
+                {% endif %}
             </div>
-            
-            <div class="input-group">
-                <label for="password">Пароль</label>
-                <input type="password" id="password" placeholder="Придумайте пароль">
-                <span class="error-message">Поле обязательно для заполнения</span>
+
+            <div class="form-group">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+                {% if form.password.errors %}
+                    <div class="error">{{ form.password.errors }}</div>
+                {% endif %}
             </div>
-            
-            <div class="input-group">
-                <label for="confirm-password">Повторите пароль</label>
-                <input type="password" id="confirm-password" placeholder="Повторите пароль">
-                <span class="error-message" id="password-match-error">Пароли не совпадают</span>
-            </div>
-            
-            <button type="submit" class="register-btn" id="registerBtn" disabled>Зарегистрироваться</button>
+
+            <div class="form-group">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="error">{{ form.password2.errors }}</div>
+                {% endif %}
+            <button type="submit">Зарегистрироваться</button>
+
         </form>
         
         <div class="login-link">

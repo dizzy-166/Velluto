@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="account-container">
+    <!-- Левый сайдбар (профиль) -->
+    <aside class="profile-sidebar">
+        <div class="user-info">
+            <div class="avatar">{{ user.get_initials }}</div>
+            <h1 class="user-name">{{ user.get_full_name|default:user.username }}</h1>
+            <p class="user-email">{{ user.email }}</p>
+        </div>
+
+        <div class="profile-menu">
+            <div class="menu-item active" data-section="orders">
+                <i>📦</i> Последние заказы
+            </div>
+            <div class="menu-item" data-section="personal">
+                <i>👤</i> Персональные данные
+            </div>
+        </div>
+
+        <div class="logout-btn-container">
+            <a href="{% url 'home' %}" class="action-btn home-btn">Вернуться на главную</a>
+            <a href="{% url 'logout' %}" class="action-btn logout-btn">Выйти</a>
+        </div>
+    </aside>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="content-section active" id="orders-section">
+            <h2 class="section-title">Мои последние заказы</h2>
+            <table class="orders-table">
+                {% for order in orders %}
+                <tr>
+                    <td>№ {{ order.id }}</td>
+                    <td>{{ order.product.name }}</td>
+                    <td>{{ order.total_price }} ₽</td>
+                    <td><span class="order-status status-{{ order.status }}">{{ order.get_status_display }}</span></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">У вас пока нет заказов</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="content-section" id="personal-section">
+            <h2 class="section-title">Персональные данные</h2>
+            <form class="personal-data-form" method="post" action="{% url 'update_profile' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="fullname">ФИО</label>
+                    <input type="text" id="fullname" name="fullname" value="{{ user.get_full_name }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Электронная почта</label>
+                    <input type="email" id="email" name="email" value="{{ user.email }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" value="{{ user.profile.phone }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Адрес</label>
+                    <input type="text" id="address" name="address" value="{{ user.profile.address }}">
+                </div>
+
+                <div class="registration-date">
+                    <strong>Дата регистрации:</strong> {{ user.date_joined|date:"d E Y" }}
+                </div>
+
+                <button type="submit" class="save-btn">Сохранить изменения</button>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuItems = document.querySelectorAll('.menu-item');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    // Обработка переключения между разделами
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            menuItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            const sectionId = this.getAttribute('data-section') + '-section';
+            document.getElementById(sectionId).classList.add('active');
+        });
+    });
+});
+</script>
+{% endblock %}

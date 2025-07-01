@@ -11,19 +11,22 @@
 <body>
     <div class="container">
         <h1>Добро пожаловать!</h1>
-        <form id="loginForm">
-            <div class="input-group">
-                <label for="login">Логин</label>
-                <input type="text" id="login" placeholder="Введите логин">
-                <span class="error-message">Поле обязательно для заполнения</span>
-            </div>
-            <div class="input-group">
-                <label for="password">Пароль</label>
-                <input type="password" id="password" placeholder="Введите пароль">
-                <span class="error-message">Поле обязательно для заполнения</span>
-            </div>
-            <button type="submit" class="login-btn" id="loginBtn" disabled>Войти</button>
+
+
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.username.label_tag }}
+            {{ form.username }}
+
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            <button type="submit">Войти</button>
+
         </form>
+
+
         <div class="register-link">
     <a href="{% url 'reg' %}">Вы еще не наш клиент? Станьте им!</a>
 </div>

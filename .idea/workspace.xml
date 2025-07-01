@@ -5,24 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06eaeb68-fa98-4fae-91c2-eae61dce9f5c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Velluto/.idea/Velluto.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Velluto/.idea/Velluto.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Velluto/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Velluto/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/main/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/main/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/main/templates/main/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/main/templates/main/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/main/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/main/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/vellutoSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/vellutoSite/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/vellutoSite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Velluto/DjangoProject/DjangoProject/vellutoSite/vellutoSite/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/INSTALLER" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/METADATA" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/RECORD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/REQUESTED" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/WHEEL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/top_level.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form/form.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/sample/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/sample/sample.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/test/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/test/form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="CSS File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Velluto" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -32,25 +45,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Django Server.Django.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/denis/OneDrive/Desktop/Django",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django Server.Django.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/OneDrive/Desktop/Django&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Django" type="Python.DjangoServer" factoryName="Django server">
       <module name="Django" />
@@ -95,10 +110,23 @@
       <updated>1751383380895</updated>
       <workItem from="1751383382817" duration="5599000" />
       <workItem from="1751389036648" duration="40000" />
+      <workItem from="1751393672936" duration="9643000" />
+      <workItem from="1751406997743" duration="492000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

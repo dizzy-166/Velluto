@@ -14,3 +14,13 @@ class Chair(models.Model):  # Исправлено на CamelCase
     class Meta:
         verbose_name = 'Стул'  # Единственное число для админки
         verbose_name_plural = 'Стулья'  # Множественное число для админки
+
+class Users(models.Model):
+    fio = models.CharField('<UNK>', max_length=200)
+    email = models.EmailField('<UNK>', max_length=200)
+    phone = models.CharField('<UNK>', max_length=11)
+    address = models.CharField('<UNK>', max_length=200)
+
+    def __str__(self):
+        return self.fio
+

@@ -3,25 +3,24 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from .models import Chair, Profile, Order
 
-# Inline для профиля — чтобы редактировать профиль прямо в User
+# Inline для профиля — редактируем профиль вместе с пользователем
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
     verbose_name_plural = 'Профиль'
     fk_name = 'user'
 
-# Кастомный UserAdmin с добавленным ProfileInline
 class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline,)
 
-    # Убираем email из list_display
-    list_display = ('username', 'first_name', 'last_name', 'is_staff')
+    # Добавляем email в список пользователей
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
     list_select_related = ('profile',)
 
-    # Убираем email из формы редактирования
+    # Включаем поле email в форму редактирования
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        ('Личная информация', {'fields': ('first_name', 'last_name')}),
+        ('Личная информация', {'fields': ('first_name', 'last_name', 'email')}),
         ('Права доступа', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Даты', {'fields': ('last_login', 'date_joined')}),
     )
@@ -31,9 +30,9 @@ class UserAdmin(BaseUserAdmin):
             return []
         return super().get_inline_instances(request, obj)
 
-# Отменяем регистрацию стандартного User
+# Отменяем стандартную регистрацию User
 admin.site.unregister(User)
-# Регистрируем наш кастомный UserAdmin
+# Регистрируем с нашим кастомным UserAdmin
 admin.site.register(User, UserAdmin)
 
 
@@ -52,5 +51,5 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ('total_price',)
     ordering = ('-created_at',)
 
-# Не регистрируем Profile отдельно, т.к. он инлайн у User
+# Profile не регистрируем отдельно, т.к. он редактируется через UserInline
 # admin.site.register(Profile)

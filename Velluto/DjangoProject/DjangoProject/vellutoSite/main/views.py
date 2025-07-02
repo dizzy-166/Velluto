@@ -20,6 +20,7 @@ def index(request):
     }
     return render(request, 'main/main.html', context)
 
+
 def user_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -31,17 +32,26 @@ def user_login(request):
         form = AuthenticationForm()
     return render(request, 'main/login.html', {'form': form})
 
+
 def registration(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            # Заполняем first_name и last_name из формы (предполагается, что они есть в RegisterForm)
+            user.first_name = form.cleaned_data.get('first_name', '')
+            user.last_name = form.cleaned_data.get('last_name', '')
+            user.save()
+
+            # Создаем профиль
+            Profile.objects.get_or_create(user=user, defaults={'phone': '', 'address': '', 'fio': f"{user.first_name} {user.last_name}".strip()})
+
             login(request, user)
-            Profile.objects.get_or_create(user=user, defaults={'phone': '', 'address': '', 'fio': ''})
             return redirect('index')
     else:
         form = RegisterForm()
     return render(request, 'main/reg.html', {'form': form})
+
 
 @login_required
 def kabinet_view(request):
@@ -76,6 +86,7 @@ def kabinet_view(request):
         'orders': orders
     })
 
+
 @login_required
 def account(request):
     user = request.user
@@ -101,8 +112,10 @@ def account(request):
         'orders': orders,
     })
 
+
 def order(request):
     return render(request, 'main/order.html')
+
 
 @login_required
 def update_profile(request):

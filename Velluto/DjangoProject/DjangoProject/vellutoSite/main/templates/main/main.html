@@ -144,7 +144,7 @@
           id="name"
           name="name"
           required
-          value="{{ user.first_name }}{% if user.last_name %} {{ user.last_name }}{% endif %}"
+          value="{% if user.first_name %}{{ user.first_name }}{% if user.last_name %} {{ user.last_name }}{% endif %}{% else %}{{ user.profile.fio }}{% endif %}"
         />
 
         <label for="phone">Телефон:</label>

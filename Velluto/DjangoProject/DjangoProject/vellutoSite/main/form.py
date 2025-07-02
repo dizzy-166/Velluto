@@ -14,6 +14,7 @@ class UserForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-input'}),
         }
 
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -24,7 +25,7 @@ class ProfileForm(forms.ModelForm):
             'address': forms.TextInput(attrs={'class': 'form-input'}),
         }
 
-# Остальные формы оставил как есть
+
 class LoginForm(forms.Form):
     username = forms.CharField(
         label='Логин',
@@ -42,7 +43,20 @@ class RegisterForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'form-input'}),
         help_text='Обязательное поле. Не более 150 символов.'
     )
-
+    first_name = forms.CharField(
+        label='Имя',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-input'}),
+    )
+    last_name = forms.CharField(
+        label='Фамилия',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-input'}),
+    )
+    email = forms.EmailField(
+        label='Email',
+        widget=forms.EmailInput(attrs={'class': 'form-input'}),
+    )
     password1 = forms.CharField(
         label='Пароль',
         widget=forms.PasswordInput(attrs={'class': 'form-input'}),
@@ -56,7 +70,7 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -74,6 +88,8 @@ class RegisterForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data.get('first_name', '')
+        user.last_name = self.cleaned_data.get('last_name', '')
         user.set_password(self.cleaned_data['password1'])
         if commit:
             user.save()

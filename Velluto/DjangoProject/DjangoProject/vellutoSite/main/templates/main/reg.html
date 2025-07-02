@@ -1,69 +1,141 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Регистрация</title>
-    <link rel="stylesheet" href="{% static 'main/css/styles.css' %}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация | Velluto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'main/css/login.css' %}">
+    <style>
+        :root {
+            --bg-image: url('{% static "main/img/background.jpg" %}');
+        }
+
+        /* Дополнительные стили специфичные для регистрации */
+        .password-requirements {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Регистрация</h1>
+    <div class="login-container">
+        <div class="login-header">
+            <img src="{% static 'main/img/Логотип_ОфисМарт.png' %}" alt="Velluto" class="login-logo">
+            <h1>Создать аккаунт</h1>
+            <p>Присоединяйтесь к Velluto</p>
+        </div>
 
-        <form method="post" novalidate>
+        <form method="post" novalidate class="login-form">
             {% csrf_token %}
 
             {% if form.errors %}
-            <ul class="errorlist">
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            <div class="error-message" style="display: block; margin-bottom: 20px;">
+                <ul style="list-style: none; padding: 0;">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li><i class="fas fa-exclamation-circle"></i> {{ error }}</li>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
+                    {% for error in form.non_field_errors %}
+                        <li><i class="fas fa-exclamation-circle"></i> {{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
             {% endif %}
 
-            <div class="form-group">
-                {{ form.username.label_tag }}
-                {{ form.username }}
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                    <div class="input-container">
+                        <i class="fas fa-user"></i>
+                        {{ form.first_name }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                    <div class="input-container">
+                        <i class="fas fa-user"></i>
+                        {{ form.last_name }}
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
-                {{ form.first_name.label_tag }}
-                {{ form.first_name }}
+                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                <div class="input-container">
+                    <i class="fas fa-at"></i>
+                    {{ form.username }}
+                </div>
             </div>
 
             <div class="form-group">
-                {{ form.last_name.label_tag }}
-                {{ form.last_name }}
+                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                <div class="input-container">
+                    <i class="fas fa-envelope"></i>
+                    {{ form.email }}
+                </div>
             </div>
 
             <div class="form-group">
-                {{ form.email.label_tag }}
-                {{ form.email }}
+                <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                <div class="input-container">
+                    <i class="fas fa-lock"></i>
+                    {{ form.password1 }}
+                </div>
+                <div class="password-requirements">
+                    Пароль должен содержать минимум 8 символов
+                </div>
             </div>
 
             <div class="form-group">
-                {{ form.password1.label_tag }}
-                {{ form.password1 }}
+                <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                <div class="input-container">
+                    <i class="fas fa-lock"></i>
+                    {{ form.password2 }}
+                </div>
             </div>
 
-            <div class="form-group">
-                {{ form.password2.label_tag }}
-                {{ form.password2 }}
-            </div>
-
-            <button type="submit">Зарегистрироваться</button>
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-user-plus"></i> Зарегистрироваться
+            </button>
         </form>
 
-        <div class="login-link" style="margin-top: 15px;">
-            <a href="{% url 'login' %}">Мы уже с вами знакомы?</a>
+        <div class="login-footer">
+            Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Добавьте здесь JavaScript для валидации формы, если необходимо
+            const password1 = document.getElementById('{{ form.password1.id_for_label }}');
+            const password2 = document.getElementById('{{ form.password2.id_for_label }}');
+
+            function validatePasswords() {
+                if (password1.value !== password2.value) {
+                    password2.setCustomValidity('Пароли не совпадают');
+                } else {
+                    password2.setCustomValidity('');
+                }
+            }
+
+            password1.addEventListener('input', validatePasswords);
+            password2.addEventListener('input', validatePasswords);
+        });
+    </script>
 </body>
 </html>

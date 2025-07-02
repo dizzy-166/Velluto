@@ -7,7 +7,6 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-
     <link rel="stylesheet" href="{% static 'main/css/kabinet.css' %}">
 </head>
 
@@ -33,9 +32,16 @@
         </div>
 
         <div class="logout-btn-container">
-            <a href="{% url 'index' %}" class="action-btn home-btn"><i class="fas fa-home"></i> Вернуться на главную</a>
-            <a href="{% url 'logout' %}" class="action-btn logout-btn"><i class="fas fa-sign-out-alt"></i> Выйти</a>
-        </div>
+    <a href="/" class="action-btn home-btn">
+        <i class="fas fa-home"></i> На главную
+    </a>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="action-btn logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Выйти
+        </button>
+    </form>
+</div>
     </aside>
 
     <!-- Основной контент с двумя колонками -->
@@ -55,7 +61,7 @@
                 {% for order in orders %}
                 <tr>
                     <td>№ {{ order.id }}</td>
-                    <td>{{ order.chair.title }}</td> <!-- Исправлено: вывод названия товара -->
+                    <td>{{ order.chair.title }}</td>
                     <td>{{ order.total_price }} ₽</td>
                     <td>
                         <span class="order-status status-{{ order.status|slugify }}">
@@ -122,12 +128,10 @@
 </div>
 
 <script>
-    // Получаем элементы меню
     const menuItems = document.querySelectorAll('.menu-item');
     const ordersSection = document.getElementById('orders-section');
     const personalSection = document.getElementById('personal-section');
 
-    // Функция для переключения активной секции
     function switchSection(section) {
         menuItems.forEach(item => item.classList.remove('active'));
         ordersSection.style.display = 'none';
@@ -142,7 +146,6 @@
         }
     }
 
-    // Обработчики кликов по элементам меню
     menuItems.forEach(item => {
         item.addEventListener('click', () => {
             const section = item.dataset.section;
@@ -150,7 +153,6 @@
         });
     });
 
-    // По умолчанию показываем секцию заказов
     switchSection('orders');
 </script>
 </body>

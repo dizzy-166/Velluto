@@ -17,10 +17,7 @@ body {
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background-color: rgba(245, 245, 245, 0.2);
     z-index: -1;
 }
@@ -37,7 +34,7 @@ body::before {
     backdrop-filter: blur(5px);
 }
 
-/* Левый сайдбар профиля */
+/* Левый сайдбар */
 .profile-sidebar {
     padding: 30px;
     width: 300px;
@@ -68,14 +65,14 @@ body::before {
 
 .user-name {
     font-size: 26px;
-    margin: 0 0 10px 0;
     font-weight: 600;
+    margin-bottom: 10px;
 }
 
 .user-email {
     color: #666;
-    margin: 0;
     font-size: 16px;
+    margin: 0;
 }
 
 /* Меню */
@@ -109,6 +106,7 @@ body::before {
     font-weight: bold;
 }
 
+/* Кнопки внизу */
 .logout-btn-container {
     margin-top: auto;
     display: flex;
@@ -126,8 +124,14 @@ body::before {
     border: none;
     text-align: center;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
 }
 
+/* Кнопка "Домой" */
 .home-btn {
     background-color: #e3f2fd;
     color: #1976d2;
@@ -137,16 +141,17 @@ body::before {
     background-color: #bbdefb;
 }
 
+/* Кнопка "Выйти" */
 .logout-btn {
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: #f44336;
+    color: white;
 }
 
 .logout-btn:hover {
-    background-color: #e0e0e0;
+    background-color: #d32f2f;
 }
 
-/* Основной контент */
+/* Контент */
 .main-content {
     flex: 1;
     padding: 30px;
@@ -277,4 +282,20 @@ body::before {
     .content-section {
         height: auto;
     }
+}
+
+/* Форсируем одинаковые стили для всех элементов */
+.logout-btn-container form,
+.logout-btn-container a {
+    display: block;
+    width: 100%;
+}
+
+/* Жестко задаем стили для кнопки выхода */
+.logout-btn-container button.logout-btn {
+    width: 100% !important;
+    background-color: #f44336 !important;
+    color: white !important;
+    padding: 14px !important;
+    font-size: 16px !important;
 }

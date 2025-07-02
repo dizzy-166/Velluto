@@ -1,20 +1,61 @@
 {% extends 'main/main.html' %}
+{% load static %}
 {% block content %}
-<div class="container">
-  <h2>Оплата заказа</h2>
-  <p>Товар: {{ product.title }}</p>
-  <p>Количество: {{ quantity }}</p>
-  <p>Итоговая сумма: {{ total_price|floatformat:0 }} ₽</p>
 
-  <form method="post">
-    {% csrf_token %}
-    <input type="hidden" name="product" value="{{ product.title }}">
-    <input type="hidden" name="quantity" value="{{ quantity }}">
-    <input type="hidden" name="name" value="{{ user.get_full_name }}">
-    <input type="hidden" name="phone" value="{{ user.profile.phone }}">
-    <input type="hidden" name="address" value="{{ user.profile.address }}">
+<head>
+<link rel="stylesheet" href="{% static 'main/css/Payment.css' %}" />
+</head>
+<section class="payment-section">
+  <div class="container">
+    <div class="payment-card">
+      <h2 class="payment-title">Оформление заказа</h2>
 
-    <button type="submit" class="buy-button">Подтвердить оплату</button>
-  </form>
-</div>
+      <div class="payment-summary">
+        <div class="summary-item">
+          <span class="summary-label">Товар:</span>
+          <span class="summary-value">{{ product.title }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Количество:</span>
+          <span class="summary-value">{{ quantity }}</span>
+        </div>
+        <div class="summary-item total">
+          <span class="summary-label">Итоговая сумма:</span>
+          <span class="summary-value">{{ total_price|floatformat:0 }} ₽</span>
+        </div>
+      </div>
+
+      <div class="payment-details">
+        <h3>Данные для доставки</h3>
+        <div class="details-grid">
+          <div class="detail-item">
+            <span class="detail-label">Получатель:</span>
+            <span class="detail-value">{{ user.get_full_name }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Телефон:</span>
+            <span class="detail-value">{{ user.profile.phone }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Адрес:</span>
+            <span class="detail-value">{{ user.profile.address }}</span>
+          </div>
+        </div>
+      </div>
+
+      <form method="post" class="payment-form">
+        {% csrf_token %}
+        <input type="hidden" name="product" value="{{ product.title }}">
+        <input type="hidden" name="quantity" value="{{ quantity }}">
+        <input type="hidden" name="name" value="{{ user.get_full_name }}">
+        <input type="hidden" name="phone" value="{{ user.profile.phone }}">
+        <input type="hidden" name="address" value="{{ user.profile.address }}">
+
+        <button type="submit" class="payment-button">
+          <i class="fas fa-credit-card"></i> Подтвердить оплату
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
 {% endblock %}

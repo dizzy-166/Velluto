@@ -1,0 +1,165 @@
+/* Основные стили */
+.orders-history-section {
+    padding: 40px 0;
+    background-color: #f9f9f9;
+    min-height: calc(100vh - 200px);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.orders-history-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+}
+
+/* Шапка */
+.orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.section-title {
+    font-size: 28px;
+    color: #333;
+    margin: 0;
+}
+
+.home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.home-btn:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Таблица */
+.orders-table-container {
+    overflow-x: auto;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.orders-table th {
+    background-color: #f5f5f5;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #555;
+    border-bottom: 2px solid #ddd;
+}
+
+.orders-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.orders-table tr:hover td {
+    background-color: #f9f9f9;
+}
+
+/* Статусы */
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status-new {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.status-processing {
+    background-color: #fff8e1;
+    color: #ff8f00;
+}
+
+.status-completed {
+    background-color: #e8f5e9;
+    color: #388e3c;
+}
+
+.status-cancelled {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+/* Нет заказов */
+.empty-orders {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.empty-orders i {
+    font-size: 50px;
+    color: #bbb;
+    margin-bottom: 20px;
+}
+
+.empty-orders p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.back-to-catalog {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.back-to-catalog:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .orders-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .home-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .orders-table th,
+    .orders-table td {
+        padding: 10px;
+    }
+}

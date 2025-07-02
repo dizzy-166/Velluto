@@ -1,34 +1,61 @@
 {% extends 'main/main.html' %}
+{% load static %}
 {% block content %}
-<div class="container">
-  <h2>История заказов</h2>
-  {% if orders %}
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Товар</th>
-          <th>Количество</th>
-          <th>Сумма</th>
-          <th>Статус</th>
-          <th>Дата</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for order in orders %}
-          <tr>
-            <td>{{ order.id }}</td>
-            <td>{{ order.chair.title }}</td>
-            <td>{{ order.quantity }}</td>
-            <td>{{ order.total_price|floatformat:0 }} ₽</td>
-            <td>{{ order.status }}</td>
-            <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>У вас пока нет заказов.</p>
-  {% endif %}
-</div>
+
+<head>
+    <link rel="stylesheet" href="{% static 'main/css/Order_history.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<section class="orders-history-section">
+  <div class="container">
+    <div class="orders-history-card">
+      <div class="orders-header">
+        <h2 class="section-title">История заказов</h2>
+        <a href="{% url 'index' %}" class="home-btn">
+          <i class="fas fa-home"></i> На главную
+        </a>
+      </div>
+
+      {% if orders %}
+        <div class="orders-table-container">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>№ заказа</th>
+                <th>Товар</th>
+                <th>Кол-во</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+                <th>Дата</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+                <tr>
+                  <td data-label="№ заказа">#{{ order.id }}</td>
+                  <td data-label="Товар">{{ order.chair.title }}</td>
+                  <td data-label="Кол-во">{{ order.quantity }}</td>
+                  <td data-label="Сумма">{{ order.total_price|floatformat:0 }} ₽</td>
+                  <td data-label="Статус">
+                    <span class="status-badge status-{{ order.status|lower }}">
+                      {{ order.get_status_display }}
+                    </span>
+                  </td>
+                  <td data-label="Дата">{{ order.created_at|date:"d.m.Y H:i" }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="empty-orders">
+          <i class="fas fa-box-open"></i>
+          <p>У вас пока нет заказов</p>
+          <a href="{% url 'index' %}" class="back-to-catalog">В каталог</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
 {% endblock %}

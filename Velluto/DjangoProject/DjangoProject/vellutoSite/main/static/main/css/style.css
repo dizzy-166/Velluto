@@ -1,22 +1,20 @@
 /* === Общие стили страницы === */
 body {
   font-family: 'Roboto', sans-serif; /* Основной шрифт текста */
-  margin: 0;                         /* Убираем отступы по краям */
+  margin: 0;
   padding: 0;
-  background-color: #f4f4f9;         /* Светло-серый фон */
-  color: #333;                       /* Цвет основного текста */
+  background-color: #f4f4f9;
+  color: #333;
 }
 
-h1,
-h2,
-h3 {
-  font-family: 'Playfair Display', serif; /* Декоративный шрифт для заголовков */
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
   margin: 0 0 10px;
 }
 
 .container {
-  max-width: 1200px;    /* Ограничиваем ширину */
-  margin: 0 auto;       /* Центрируем */
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 0 15px;
 }
 
@@ -24,42 +22,57 @@ h3 {
 header {
   background-color: #fff;
   padding: 20px 0;
-  border-bottom: 1px solid #eee; /* Линия под шапкой */
+  border-bottom: 1px solid #eee;
 }
 
 .header-left {
   display: flex;
-  align-items: center; /* Выравниваем логотип и текст по центру по вертикали */
+  align-items: center;
 }
 
 .header-flex {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Расположение логотипа и меню по краям */
+  justify-content: space-between;
   align-items: center;
+  gap: 20px;
 }
 
 .logo {
-  height: 60px;         /* Высота изображения логотипа */
-  margin-right: 15px;   /* Отступ от текста */
+  max-height: 60px;
+  max-width: 150px;
+  width: auto;
+  height: auto;
+  margin-right: 15px;
+  display: block;
 }
 
+/* Для img внутри .logo, чтобы точно масштабировался */
+.logo img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+/* Подзаголовок рядом с логотипом */
 .tagline {
   margin: 0;
   font-size: 14px;
-  color: #666; /* Серый цвет для подзаголовка */
+  color: #666;
 }
 
-/* === Навигация === */
+/* Навигация */
 nav ul {
-  display: flex;        /* Горизонтальное меню */
-  list-style: none;     /* Убираем маркеры */
+  display: flex;
+  list-style: none;
   padding: 0;
   margin: 0;
+  gap: 25px;
+  flex-wrap: wrap;
 }
 
 nav ul li {
-  margin-left: 20px;    /* Расстояние между пунктами меню */
+  margin: 0;
 }
 
 nav ul li a {
@@ -72,7 +85,6 @@ nav ul li a {
   font-weight: 500;
 }
 
-/* Подчеркивание при наведении (появляется как анимация) */
 nav ul li a::after {
   content: "";
   position: absolute;
@@ -86,14 +98,14 @@ nav ul li a::after {
 
 nav ul li a:hover {
   color: #888888;
-  transform: scale(1.05); /* Увеличение при наведении */
+  transform: scale(1.05);
 }
 
 nav ul li a:hover::after {
-  width: 100%; /* Полное подчеркивание */
+  width: 100%;
 }
 
-/* === Брендинг: название рядом с логотипом === */
+/* Название рядом с логотипом */
 .branding-text {
   margin-left: 10px;
   display: flex;
@@ -106,6 +118,217 @@ nav ul li a:hover::after {
   font-size: 32px;
   font-family: 'Playfair Display', serif;
 }
+
+/* Контейнер с аккаунтом */
+.account-icon {
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: auto;
+}
+
+/* Ссылки и кнопки в аккаунте */
+.account-icon a,
+.account-icon .logout-btn {
+  font-weight: 600;
+  font-size: 15px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1.5px solid #333;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.account-icon a:hover,
+.account-icon .logout-btn:hover {
+  background-color: #f0f0f0;
+  color: #555;
+  transform: scale(1.05);
+}
+
+/* Форма выхода */
+.account-icon form {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+/* Кнопка выхода */
+.account-icon button.logout-btn {
+  font-family: 'Roboto', sans-serif;
+  border: 1.5px solid #333;
+  background-color: #fff;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+/* Аватарка — 32x32, круглая */
+.account-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  vertical-align: middle;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.account-avatar:hover {
+  opacity: 0.8;
+}
+
+/* === Мобильная адаптивность === */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  nav ul li {
+    margin: 0;
+  }
+
+  .header-flex {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .account-icon {
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  /* Уменьшаем логотип для мобильных */
+  .logo {
+    height: 40px;
+    max-width: 100px;
+    margin-right: 10px;
+  }
+
+  .branding-text h1 {
+    font-size: 24px;
+  }
+}
+
+/* Контейнер с аккаунтом */
+.account-icon {
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: auto;
+}
+
+/* Ссылки и кнопки в аккаунте */
+.account-icon a,
+.account-icon .logout-btn {
+  font-weight: 600;
+  font-size: 15px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1.5px solid #333;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.account-icon a:hover,
+.account-icon .logout-btn:hover {
+  background-color: #f0f0f0;
+  color: #555;
+  transform: scale(1.05);
+}
+
+/* Форма выхода */
+.account-icon form {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+/* Кнопка выхода */
+.account-icon button.logout-btn {
+  font-family: 'Roboto', sans-serif;
+  border: 1.5px solid #333;
+  background-color: #fff;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+/* Аватарка — 32x32, круглая */
+.account-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  vertical-align: middle;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.account-avatar:hover {
+  opacity: 0.8;
+}
+
+/* === Мобильная адаптивность === */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: row; /* Меню горизонтально */
+    justify-content: center;
+    gap: 15px;
+  }
+
+  nav ul li {
+    margin: 0;
+  }
+
+  .header-flex {
+    flex-direction: row; /* НЕ колонка */
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .account-icon {
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+
+/* === Остальной CSS сайта (твой оригинал) === */
 
 /* === Каталог — вводная часть === */
 .catalog-intro {
@@ -154,33 +377,30 @@ nav ul li a:hover::after {
   border-radius: 8px; /* Скругление углов */
   padding: 20px; /* Внутренние отступы */
   text-align: center; /* Центрирование содержимого */
-  transition: transform 0.3s, box-shadow 0.3s; /* Плавные переходы для масштабирования и тени */
+  transition: transform 0.3s, box-shadow 0.3s; /* Плавные переходы */
 }
 
-/* Эффект при наведении на карточку */
+/* Эффект при наведении */
 .product-card:hover {
-  transform: scale(1.03); /* Лёгкое увеличение размера */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Мягкая тень для эффекта "подъёма" */
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Стили для изображения товара внутри карточки */
 .product-card img {
-  width: 100%; /* Изображение на всю ширину карточки */
-  height: auto; /* Автоматическая высота для сохранения пропорций */
-  border-radius: 8px; /* Скругление углов изображения */
-  margin-bottom: 15px; /* Отступ снизу от изображения до текста */
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
 }
 
-/* Стили для цены */
 .price {
-  font-size: 18px; /* Размер шрифта */
-  color: #333; /* Тёмно-серый цвет текста */
-  font-weight: bold; /* Жирный шрифт */
-  margin: 10px 0; /* Вертикальные отступы сверху и снизу */
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  margin: 10px 0;
 }
 
-
-/* === Кнопка "Купить" === */
+/* Кнопка "Купить" */
 .buy-button {
   display: inline-block;
   background-color: #fff;
@@ -193,6 +413,7 @@ nav ul li a:hover::after {
   text-decoration: none;
   border: 1px solid #ddd;
   transition: background-color 0.3s, transform 0.3s;
+  cursor: pointer;
 }
 
 .buy-button:hover {
@@ -367,25 +588,4 @@ footer {
   font-weight: bold;
   color: #333;
   font-family: 'Playfair Display', serif;
-}
-
-.account-icon {
-  margin-left: 30px;
-  display: flex;
-  align-items: center;
-}
-
-.account-img {
-  width: 40px;
-  height: 40px;
-  transition: transform 0.3s ease;
-}
-
-.account-img:hover {
-  transform: scale(1.1);
-}
-
-nav ul {
-  display: flex;
-  gap: 20px;
 }

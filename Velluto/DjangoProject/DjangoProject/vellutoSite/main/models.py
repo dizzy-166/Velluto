@@ -30,14 +30,20 @@ class Profile(models.Model):
 
 
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('new', 'Новый заказ'),
+        ('processing', 'В обработке'),
+        ('completed', 'Выполнен'),
+        ('cancelled', 'Отменён'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     chair = models.ForeignKey(Chair, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=50, default='Новый заказ')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # Добавим поля доставки
     delivery_address = models.CharField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
     recipient_name = models.CharField(max_length=100, blank=True, null=True)
@@ -45,10 +51,12 @@ class Order(models.Model):
     def __str__(self):
         return f"Заказ #{self.id} от {self.user.username}"
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

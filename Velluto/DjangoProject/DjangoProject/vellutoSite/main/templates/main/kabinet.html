@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Кабинет</title>
-     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
@@ -55,11 +55,11 @@
                 {% for order in orders %}
                 <tr>
                     <td>№ {{ order.id }}</td>
-                    <td>{{ order.product.name }}</td>
+                    <td>{{ order.chair.title }}</td> <!-- Исправлено: вывод названия товара -->
                     <td>{{ order.total_price }} ₽</td>
                     <td>
-                        <span class="order-status status-{{ order.status }}">
-                            {{ order.get_status_display }}
+                        <span class="order-status status-{{ order.status|slugify }}">
+                            {{ order.get_status_display|default:order.status }}
                         </span>
                     </td>
                 </tr>
@@ -72,7 +72,7 @@
             </table>
         </section>
 
-        <section class="content-section personal-section" id="personal-section">
+        <section class="content-section personal-section" id="personal-section" style="display:none;">
             <h2 class="section-title">Персональные данные</h2>
             <form class="personal-data-form" method="post" action="{% url 'account' %}">
                 {% csrf_token %}

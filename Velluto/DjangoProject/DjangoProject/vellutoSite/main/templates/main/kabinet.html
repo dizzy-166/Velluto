@@ -1,54 +1,76 @@
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Кабинет</title>
+    <link rel="stylesheet" href="{% static 'main/css/kabinet.css' %}">
+</head>
 
-{% block content %}
+<body>
 <div class="account-container">
     <!-- Левый сайдбар (профиль) -->
     <aside class="profile-sidebar">
         <div class="user-info">
-            <div class="avatar">{{ user.get_initials }}</div>
+            <div class="avatar">
+                {{ user.first_name|default:"D"|slice:":1" }}{{ user.last_name|default:"S"|slice:":1" }}
+            </div>
             <h1 class="user-name">{{ user.get_full_name|default:user.username }}</h1>
             <p class="user-email">{{ user.email }}</p>
         </div>
 
         <div class="profile-menu">
             <div class="menu-item active" data-section="orders">
-                <i>📦</i> Последние заказы
+                <i class="fas fa-box"></i> Последние заказы
             </div>
             <div class="menu-item" data-section="personal">
-                <i>👤</i> Персональные данные
+                <i class="fas fa-user"></i> Персональные данные
             </div>
         </div>
 
         <div class="logout-btn-container">
-            <a href="{% url 'home' %}" class="action-btn home-btn">Вернуться на главную</a>
-            <a href="{% url 'logout' %}" class="action-btn logout-btn">Выйти</a>
+            <a href="{% url 'index' %}" class="action-btn home-btn"><i class="fas fa-home"></i> Вернуться на главную</a>
+            <a href="{% url 'logout' %}" class="action-btn logout-btn"><i class="fas fa-sign-out-alt"></i> Выйти</a>
         </div>
     </aside>
 
-    <!-- Основной контент -->
+    <!-- Основной контент с двумя колонками -->
     <main class="main-content">
-        <div class="content-section active" id="orders-section">
+        <section class="content-section orders-section" id="orders-section">
             <h2 class="section-title">Мои последние заказы</h2>
             <table class="orders-table">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                    <th>Статус</th>
+                </tr>
+                </thead>
+                <tbody>
                 {% for order in orders %}
                 <tr>
                     <td>№ {{ order.id }}</td>
                     <td>{{ order.product.name }}</td>
                     <td>{{ order.total_price }} ₽</td>
-                    <td><span class="order-status status-{{ order.status }}">{{ order.get_status_display }}</span></td>
+                    <td>
+                        <span class="order-status status-{{ order.status }}">
+                            {{ order.get_status_display }}
+                        </span>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4">У вас пока нет заказов</td>
+                <td colspan="4">У вас пока нет заказов</td>
                 </tr>
                 {% endfor %}
+                </tbody>
             </table>
-        </div>
+        </section>
 
-        <div class="content-section" id="personal-section">
+        <section class="content-section personal-section" id="personal-section">
             <h2 class="section-title">Персональные данные</h2>
-            <form class="personal-data-form" method="post" action="{% url 'update_profile' %}">
+            <form class="personal-data-form" method="post" action="#">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="fullname">ФИО</label>
@@ -62,43 +84,55 @@
 
                 <div class="form-group">
                     <label for="phone">Телефон</label>
-                    <input type="tel" id="phone" name="phone" value="{{ user.profile.phone }}">
+                    <input type="tel" id="phone" name="phone" value="{{ user.profile.phone|default_if_none:'' }}">
                 </div>
 
                 <div class="form-group">
                     <label for="address">Адрес</label>
-                    <input type="text" id="address" name="address" value="{{ user.profile.address }}">
+                    <input type="text" id="address" name="address" value="{{ user.profile.address|default_if_none:'' }}">
                 </div>
 
                 <div class="registration-date">
-                    <strong>Дата регистрации:</strong> {{ user.date_joined|date:"d E Y" }}
+                    <strong>Дата регистрации:</strong> {{ user.date_joined|date:"d F Y" }}
                 </div>
 
                 <button type="submit" class="save-btn">Сохранить изменения</button>
             </form>
-        </div>
+        </section>
     </main>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+    // Получаем элементы меню
     const menuItems = document.querySelectorAll('.menu-item');
-    const contentSections = document.querySelectorAll('.content-section');
+    const ordersSection = document.getElementById('orders-section');
+    const personalSection = document.getElementById('personal-section');
 
-    // Обработка переключения между разделами
+    // Функция для переключения активной секции
+    function switchSection(section) {
+        menuItems.forEach(item => item.classList.remove('active'));
+        ordersSection.style.display = 'none';
+        personalSection.style.display = 'none';
+
+        if (section === 'orders') {
+            ordersSection.style.display = 'block';
+            menuItems[0].classList.add('active');
+        } else if (section === 'personal') {
+            personalSection.style.display = 'block';
+            menuItems[1].classList.add('active');
+        }
+    }
+
+    // Обработчики кликов по элементам меню
     menuItems.forEach(item => {
-        item.addEventListener('click', function() {
-            menuItems.forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
-
-            contentSections.forEach(section => {
-                section.classList.remove('active');
-            });
-
-            const sectionId = this.getAttribute('data-section') + '-section';
-            document.getElementById(sectionId).classList.add('active');
+        item.addEventListener('click', () => {
+            const section = item.dataset.section;
+            switchSection(section);
         });
     });
-});
+
+    // По умолчанию показываем секцию заказов
+    switchSection('orders');
 </script>
-{% endblock %}
+</body>
+</html>

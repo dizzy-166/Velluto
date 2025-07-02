@@ -1,7 +1,16 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+
+from main.models import Profile
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile  # здесь была ошибка: Users → Profile
+        fields = ['phone', 'address']  # ФИО и email у вас в User, убрал из Profile
+
+    # Если хотите редактировать ФИО и email, то это нужно делать через UserForm или напрямую через user
 
 
 class LoginForm(forms.Form):
@@ -21,6 +30,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'form-input'}),
         help_text='Обязательное поле. Не более 150 символов.'
     )
+
     password1 = forms.CharField(
         label='Пароль',
         widget=forms.PasswordInput(attrs={'class': 'form-input'}),
@@ -32,10 +42,9 @@ class RegisterForm(UserCreationForm):
         help_text='Введите пароль еще раз для подтверждения.'
     )
 
-
     class Meta:
         model = get_user_model()
-        fields = ['username', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -52,6 +61,7 @@ class RegisterForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
         user.set_password(self.cleaned_data['password1'])
         if commit:
             user.save()

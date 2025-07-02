@@ -5,19 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06eaeb68-fa98-4fae-91c2-eae61dce9f5c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/INSTALLER" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/METADATA" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/RECORD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/REQUESTED" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/WHEEL" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form-0.0.1.dist-info/top_level.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/form/form.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/sample/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/sample/sample.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/test/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.venv/Lib/site-packages/test/form.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,6 +99,8 @@
       <workItem from="1751389036648" duration="40000" />
       <workItem from="1751393672936" duration="9643000" />
       <workItem from="1751406997743" duration="492000" />
+      <workItem from="1751457872701" duration="7737000" />
+      <workItem from="1751472019263" duration="2152000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class Chair(models.Model):
     title = models.CharField('Название', max_length=200)
@@ -53,3 +56,12 @@ class Order(models.Model):
         # Автоматически считаем total_price при сохранении
         self.total_price = self.chair.price * self.quantity
         super().save(*args, **kwargs)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

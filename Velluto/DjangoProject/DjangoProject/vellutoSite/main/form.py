@@ -1,18 +1,30 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 from main.models import Profile
 
 
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email']
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-input'}),
+        }
+
 class ProfileForm(forms.ModelForm):
     class Meta:
-        model = Profile  # здесь была ошибка: Users → Profile
-        fields = ['phone', 'address']  # ФИО и email у вас в User, убрал из Profile
+        model = Profile
+        fields = ['fio', 'phone', 'address']
+        widgets = {
+            'fio': forms.TextInput(attrs={'class': 'form-input'}),
+            'phone': forms.TextInput(attrs={'class': 'form-input'}),
+            'address': forms.TextInput(attrs={'class': 'form-input'}),
+        }
 
-    # Если хотите редактировать ФИО и email, то это нужно делать через UserForm или напрямую через user
-
-
+# Остальные формы оставил как есть
 class LoginForm(forms.Form):
     username = forms.CharField(
         label='Логин',

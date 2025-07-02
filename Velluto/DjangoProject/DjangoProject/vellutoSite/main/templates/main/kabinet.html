@@ -61,7 +61,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                <td colspan="4">У вас пока нет заказов</td>
+                    <td colspan="4">У вас пока нет заказов</td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -70,26 +70,41 @@
 
         <section class="content-section personal-section" id="personal-section">
             <h2 class="section-title">Персональные данные</h2>
-            <form class="personal-data-form" method="post" action="#">
+            <form class="personal-data-form" method="post" action="{% url 'account' %}">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="fullname">ФИО</label>
-                    <input type="text" id="fullname" name="fullname" value="{{ user.get_full_name }}">
+                    {{ user_form.non_field_errors }}
+                    {{ profile_form.non_field_errors }}
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Электронная почта</label>
-                    <input type="email" id="email" name="email" value="{{ user.email }}">
+                    {{ user_form.first_name.label_tag }}
+                    {{ user_form.first_name }}
+                    {{ user_form.first_name.errors }}
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">Телефон</label>
-                    <input type="tel" id="phone" name="phone" value="{{ user.profile.phone|default_if_none:'' }}">
+                    {{ user_form.last_name.label_tag }}
+                    {{ user_form.last_name }}
+                    {{ user_form.last_name.errors }}
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Адрес</label>
-                    <input type="text" id="address" name="address" value="{{ user.profile.address|default_if_none:'' }}">
+                    {{ user_form.email.label_tag }}
+                    {{ user_form.email }}
+                    {{ user_form.email.errors }}
+                </div>
+
+                <div class="form-group">
+                    {{ profile_form.phone.label_tag }}
+                    {{ profile_form.phone }}
+                    {{ profile_form.phone.errors }}
+                </div>
+
+                <div class="form-group">
+                    {{ profile_form.address.label_tag }}
+                    {{ profile_form.address }}
+                    {{ profile_form.address.errors }}
                 </div>
 
                 <div class="registration-date">

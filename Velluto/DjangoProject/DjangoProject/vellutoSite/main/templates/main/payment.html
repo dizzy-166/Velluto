@@ -1,0 +1,20 @@
+{% extends 'main/main.html' %}
+{% block content %}
+<div class="container">
+  <h2>Оплата заказа</h2>
+  <p>Товар: {{ product.title }}</p>
+  <p>Количество: {{ quantity }}</p>
+  <p>Итоговая сумма: {{ total_price|floatformat:0 }} ₽</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="product" value="{{ product.title }}">
+    <input type="hidden" name="quantity" value="{{ quantity }}">
+    <input type="hidden" name="name" value="{{ user.get_full_name }}">
+    <input type="hidden" name="phone" value="{{ user.profile.phone }}">
+    <input type="hidden" name="address" value="{{ user.profile.address }}">
+
+    <button type="submit" class="buy-button">Подтвердить оплату</button>
+  </form>
+</div>
+{% endblock %}

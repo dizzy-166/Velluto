@@ -12,4 +12,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='index'), name='logout'),
     path('update-profile/', views.update_profile, name='update_profile'),
     path('profile/', kabinet_view, name='profile'),
+    path('payment/', views.payment, name='payment'),
+    path('orders/', views.order_history, name='order_history'),
 ]

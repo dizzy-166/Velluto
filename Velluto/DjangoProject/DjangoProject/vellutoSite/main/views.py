@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from main.form import LoginForm, RegisterForm, ProfileForm, UserForm
-from main.models import Chair, Profile
+from main.models import Chair, Profile, Order
 
 
 def index(request):
@@ -128,3 +128,63 @@ def update_profile(request):
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'main/kabinet.html', {'form': form})
+
+@login_required
+def payment(request):
+    if request.method == 'POST':
+        # Получаем данные из формы оплаты
+        product_title = request.POST.get('product')
+        quantity = int(request.POST.get('quantity', 1))
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+
+        # Получаем объект товара
+        try:
+            chair = Chair.objects.get(title=product_title)
+        except Chair.DoesNotExist:
+            # Можно добавить ошибку или редирект
+            return redirect('main')
+
+        total_price = chair.price * quantity
+
+        # Создаем заказ в базе
+        order = Order.objects.create(
+            user=request.user,
+            chair=chair,
+            quantity=quantity,
+            total_price=total_price,
+            status='Ожидает оплаты',  # или другое значение по умолчанию
+            delivery_address=address,
+            phone=phone,
+            recipient_name=name
+        )
+
+        # Тут можно добавить фиктивную оплату (например, просто показать сообщение об успехе)
+        return redirect('order_history')
+
+    else:
+        # При GET показываем страницу с данными заказа (полученные через GET)
+        product_title = request.GET.get('product')
+        quantity = int(request.GET.get('quantity', 1))
+
+        try:
+            chair = Chair.objects.get(title=product_title)
+        except Chair.DoesNotExist:
+            return redirect('main')
+
+        total_price = chair.price * quantity
+
+        context = {
+            'product': chair,
+            'quantity': quantity,
+            'total_price': total_price,
+            'user': request.user,
+        }
+        return render(request, 'main/payment.html', context)
+
+
+@login_required
+def order_history(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'main/order_history.html', {'orders': orders})

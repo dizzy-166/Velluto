@@ -30,32 +30,20 @@ class Profile(models.Model):
 
 
 class Order(models.Model):
-    STATUS_CHOICES = [
-        ('new', 'Новый'),
-        ('processing', 'В обработке'),
-        ('shipped', 'Отправлен'),
-        ('completed', 'Выполнен'),
-        ('cancelled', 'Отменён'),
-    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    chair = models.ForeignKey(Chair, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=50, default='Новый заказ')
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, related_name='orders')
-    chair = models.ForeignKey(Chair, verbose_name='Товар', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField('Количество', default=1)
-    total_price = models.DecimalField('Общая цена', max_digits=10, decimal_places=2, blank=True)
-    status = models.CharField('Статус', max_length=20, choices=STATUS_CHOICES, default='new')
-    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+    # Добавим поля доставки
+    delivery_address = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    recipient_name = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Заказ #{self.id} от {self.user.username} - {self.chair.title} x {self.quantity}'
-
-    class Meta:
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
-
-    def save(self, *args, **kwargs):
-        # Автоматически считаем total_price при сохранении
-        self.total_price = self.chair.price * self.quantity
-        super().save(*args, **kwargs)
+        return f"Заказ #{self.id} от {self.user.username}"
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

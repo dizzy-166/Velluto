@@ -128,7 +128,7 @@
 
   <main class="container">
     {% if user.is_authenticated %}
-      <form id="order-form" class="order-form" action="{% url 'order' %}" method="post">
+      <form id="order-form" class="order-form" action="{% url 'payment' %}" method="get">
         {% csrf_token %}
         <label for="product">Выберите товар:</label>
         <select name="product" id="product" required onchange="updateTotal()">

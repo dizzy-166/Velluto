@@ -5,9 +5,20 @@ from django.shortcuts import render, redirect
 from main.form import LoginForm, RegisterForm, ProfileForm, UserForm
 from main.models import Chair, Profile
 
+
 def index(request):
     chairs = Chair.objects.all()
-    return render(request, 'main/main.html', {'chairs': chairs})
+    user = request.user
+    profile = getattr(user, 'profile', None) if user.is_authenticated else None
+
+    context = {
+        'chairs': chairs,
+        'user_authenticated': user.is_authenticated,
+        'user_name': f"{user.first_name} {user.last_name}".strip() if user.is_authenticated else '',
+        'user_phone': profile.phone if profile else '',
+        'user_address': profile.address if profile else '',
+    }
+    return render(request, 'main/main.html', context)
 
 def user_login(request):
     if request.method == 'POST':
@@ -77,7 +88,7 @@ def account(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('account')
+            return redirect('/account/?section=personal')
     else:
         user_form = UserForm(instance=user)
         profile_form = ProfileForm(instance=profile)

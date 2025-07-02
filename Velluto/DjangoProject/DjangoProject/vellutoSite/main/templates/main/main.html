@@ -21,6 +21,8 @@
       if (product && quantity) {
         var total = productPrices[product] * quantity;
         document.getElementById("total").innerText = "Сумма: " + total.toLocaleString('ru-RU') + " ₽";
+      } else {
+        document.getElementById("total").innerText = "К оплате: 0 ₽";
       }
     }
   </script>
@@ -45,19 +47,17 @@
           <li><a href="#contact">Контакты</a></li>
         </ul>
       </nav>
-     <div class="account-icon">
-      {% if user.is_authenticated %}
-    <a href="{% url 'account' %}">Профиль</a>
-    <form method="post" action="{% url 'logout' %}" style="display:inline;">
-  {% csrf_token %}
-  <button type="submit" class="logout-btn">Выйти</button>
-</form>
-
-{% else %}
-    <a href="{% url 'login' %}">Войти</a>
-{% endif %}
-    </div>
-
+      <div class="account-icon">
+        {% if user.is_authenticated %}
+          <a href="{% url 'account' %}">Профиль</a>
+          <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Выйти</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}">Войти</a>
+        {% endif %}
+      </div>
     </div>
   </header>
 
@@ -76,17 +76,21 @@
       <h2>Каталог кресел</h2>
       <div class="product-grid">
         {% for chair in chairs %}
-        <div class="product-card">
-          {% if chair.photo %}
-          <img src="{{ chair.photo.url }}" alt="{{ chair.title }}" />
-          {% else %}
-          <img src="{% static 'main/img/Стул_1.jpg' %}" alt="{{ chair.title }}" />
-          {% endif %}
-          <h3>{{ chair.title }}</h3>
-          <p>{{ chair.description }}</p>
-          <p class="price">{{ chair.price|floatformat:"0" }} ₽</p>
-          <a href="#order-form" class="buy-button" data-product="{{ chair.title }}">Купить</a>
-        </div>
+          <div class="product-card">
+            {% if chair.photo %}
+              <img src="{{ chair.photo.url }}" alt="{{ chair.title }}" />
+            {% else %}
+              <img src="{% static 'main/img/Стул_1.jpg' %}" alt="{{ chair.title }}" />
+            {% endif %}
+            <h3>{{ chair.title }}</h3>
+            <p>{{ chair.description }}</p>
+            <p class="price">{{ chair.price|floatformat:"0" }} ₽</p>
+            {% if user.is_authenticated %}
+              <a href="#order-form" class="buy-button" data-product="{{ chair.title }}">Купить</a>
+            {% else %}
+              <a href="{% url 'login' %}" class="buy-button disabled" title="Войдите, чтобы купить">Купить</a>
+            {% endif %}
+          </div>
         {% endfor %}
       </div>
     </div>
@@ -123,32 +127,67 @@
   </section>
 
   <main class="container">
-    <form id="order-form" class="order-form" action="{% url 'order' %}" method="post">
-      {% csrf_token %}
-      <label for="product">Выберите товар:</label>
-      <select name="product" id="product" required onchange="updateTotal()">
-        <option value="">-- Выберите кресло --</option>
-        {% for chair in chairs %}
-        <option value="{{ chair.title }}">{{ chair.title }}</option>
-        {% endfor %}
-      </select>
+    {% if user.is_authenticated %}
+      <form id="order-form" class="order-form" action="{% url 'order' %}" method="post">
+        {% csrf_token %}
+        <label for="product">Выберите товар:</label>
+        <select name="product" id="product" required onchange="updateTotal()">
+          <option value="">-- Выберите кресло --</option>
+          {% for chair in chairs %}
+            <option value="{{ chair.title }}">{{ chair.title }}</option>
+          {% endfor %}
+        </select>
 
-      <label for="name">Ваше имя:</label>
-      <input type="text" id="name" name="name" required>
+        <label for="name">Ваше имя:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          value="{{ user.first_name }}{% if user.last_name %} {{ user.last_name }}{% endif %}"
+        />
 
-      <label for="phone">Телефон:</label>
-      <input type="tel" id="phone" name="phone" required>
+        <label for="phone">Телефон:</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          required
+          value="{{ user.profile.phone }}"
+        />
 
-      <label for="quantity">Количество:</label>
-      <input type="number" id="quantity" name="quantity" value="1" min="1" required onchange="updateTotal()">
+        <label for="quantity">Количество:</label>
+        <input
+          type="number"
+          id="quantity"
+          name="quantity"
+          value="1"
+          min="1"
+          required
+          onchange="updateTotal()"
+        />
 
-      <label for="address">Адрес доставки:</label>
-      <input type="text" id="address" name="address" required>
+        <label for="address">Адрес доставки:</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          required
+          value="{{ user.profile.address }}"
+        />
 
-      <p id="total">К оплате: 0 ₽</p>
+        <p id="total">К оплате: 0 ₽</p>
 
-      <button type="submit" class="buy-button">Перейти к оплате</button>
-    </form>
+        <button type="submit" class="buy-button">Перейти к оплате</button>
+      </form>
+    {% else %}
+      <div
+        class="login-warning"
+        style="padding: 20px; border: 1px solid #ccc; background: #f8d7da; color: #721c24; text-align: center; margin-top: 20px;"
+      >
+        <p>Чтобы оформить заказ, пожалуйста, <a href="{% url 'login' %}">войдите в свой аккаунт</a>.</p>
+      </div>
+    {% endif %}
   </main>
   {% endblock %}
 
@@ -174,12 +213,19 @@
       const productSelect = document.getElementById('product');
 
       buttons.forEach(button => {
-        button.addEventListener('click', function () {
-          const selectedProduct = this.getAttribute('data-product');
-          if (productSelect) {
-            productSelect.value = selectedProduct;
-            updateTotal();
-          }
+        button.addEventListener('click', function (e) {
+          {% if not user.is_authenticated %}
+            e.preventDefault();
+            alert('Пожалуйста, войдите, чтобы купить товар.');
+            window.location.href = "{% url 'login' %}";
+          {% else %}
+            const selectedProduct = this.getAttribute('data-product');
+            if (productSelect) {
+              productSelect.value = selectedProduct;
+              updateTotal();
+              document.getElementById('order-form').scrollIntoView({behavior: 'smooth'});
+            }
+          {% endif %}
         });
       });
     });
